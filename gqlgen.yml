@@ -63,5 +63,11 @@ models:
       - github.com/99designs/gqlgen/graphql.Int32
   User:
     model: github.com/PrinceNarteh/gqlgen_cc/graph/model.User
+    fields:
+      meetups:
+        resolver: true
   Meetup:
     model: github.com/PrinceNarteh/gqlgen_cc/graph/model.MeetUp
+    fields:
+      user:
+        resolver: true
