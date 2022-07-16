@@ -62,7 +62,15 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 
 // Meetups is the resolver for the meetups field.
 func (r *userResolver) Meetups(ctx context.Context, obj *model.User) ([]*model.MeetUp, error) {
-	panic(fmt.Errorf("not implemented"))
+	meetupsSlice := make([]*model.MeetUp, 0)
+
+	for _, meetup := range meetups {
+		if meetup.UserId == obj.ID {
+			meetupsSlice = append(meetupsSlice, meetup)
+		}
+	}
+
+	return meetupsSlice, nil
 }
 
 // MeetUp returns generated.MeetUpResolver implementation.
