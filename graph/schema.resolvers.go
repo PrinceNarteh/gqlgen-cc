@@ -5,7 +5,9 @@ package graph
 
 import (
 	"context"
+	"errors"
 	"fmt"
+	"log"
 
 	"github.com/PrinceNarteh/gqlgen_cc/graph/generated"
 	"github.com/PrinceNarteh/gqlgen_cc/graph/model"
@@ -13,7 +15,20 @@ import (
 
 // User is the resolver for the user field.
 func (r *meetUpResolver) User(ctx context.Context, obj *model.MeetUp) (*model.User, error) {
-	panic("implement me")
+	user := new(model.User)
+
+	for _, u := range users {
+		if u.ID == obj.UserId {
+			user = u
+			break
+		}
+	}
+
+	if user == nil {
+		return nil, errors.New("user not found")
+	}
+
+	return user, nil
 }
 
 // CreateMeetUp is the resolver for the createMeetUp field.
@@ -28,7 +43,21 @@ func (r *queryResolver) Meetups(ctx context.Context) ([]*model.MeetUp, error) {
 
 // User is the resolver for the user field.
 func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	panic(fmt.Errorf("not implemented"))
+	user := new(model.User)
+
+	for _, u := range users {
+		log.Println(id)
+		if u.ID == id {
+			user = u
+			break
+		}
+	}
+
+	if user == nil {
+		return nil, errors.New("user not found")
+	}
+
+	return user, nil
 }
 
 // Meetups is the resolver for the meetups field.
@@ -90,6 +119,6 @@ var users = []*model.User{
 	},
 }
 
-func (u *userResolver) MeetUps(ctx context.Context, obj *model.User) (*model.MeetUp, error) {
+func (r *userResolver) MeetUps(ctx context.Context, obj *model.User) (*model.MeetUp, error) {
 	panic("implement me")
 }
