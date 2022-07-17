@@ -8,12 +8,12 @@ import (
 	"errors"
 	"fmt"
 	"github.com/PrinceNarteh/gqlgen_cc/graph/generated"
-	"github.com/PrinceNarteh/gqlgen_cc/graph/model"
+	model2 "github.com/PrinceNarteh/gqlgen_cc/pkg/model"
 )
 
 // User is the resolver for the user field.
-func (r *meetUpResolver) User(ctx context.Context, obj *model.MeetUp) (*model.User, error) {
-	user := new(model.User)
+func (r *meetUpResolver) User(ctx context.Context, obj *model2.MeetUp) (*model2.User, error) {
+	user := new(model2.User)
 
 	for _, u := range users {
 		if u.ID == obj.UserId {
@@ -30,18 +30,18 @@ func (r *meetUpResolver) User(ctx context.Context, obj *model.MeetUp) (*model.Us
 }
 
 // CreateMeetUp is the resolver for the createMeetUp field.
-func (r *mutationResolver) CreateMeetUp(ctx context.Context, input model.NewMeetUp) (*model.MeetUp, error) {
+func (r *mutationResolver) CreateMeetUp(ctx context.Context, input model2.NewMeetUp) (*model2.MeetUp, error) {
 	panic(fmt.Errorf("not implemented"))
 }
 
 // Meetups is the resolver for the meetups field.
-func (r *queryResolver) Meetups(ctx context.Context) ([]*model.MeetUp, error) {
+func (r *queryResolver) Meetups(ctx context.Context) ([]*model2.MeetUp, error) {
 	return meetups, nil
 }
 
 // User is the resolver for the user field.
-func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error) {
-	user := new(model.User)
+func (r *queryResolver) User(ctx context.Context, id string) (*model2.User, error) {
+	user := new(model2.User)
 
 	for _, u := range users {
 		if u.ID == id {
@@ -58,8 +58,8 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 }
 
 // Meetups is the resolver for the meetups field.
-func (r *userResolver) Meetups(ctx context.Context, obj *model.User) ([]*model.MeetUp, error) {
-	meetupsSlice := make([]*model.MeetUp, 0)
+func (r *userResolver) Meetups(ctx context.Context, obj *model2.User) ([]*model2.MeetUp, error) {
+	meetupsSlice := make([]*model2.MeetUp, 0)
 
 	for _, meetup := range meetups {
 		if meetup.UserId == obj.ID {
@@ -93,7 +93,7 @@ type userResolver struct{ *Resolver }
 //  - When renaming or deleting a resolver the old code will be put in here. You can safely delete
 //    it when you're done.
 //  - You have helper methods in this file. Move them out to keep these resolver files clean.
-var meetups = []*model.MeetUp{
+var meetups = []*model2.MeetUp{
 	{
 		ID:          "1",
 		Title:       "First Meetup",
@@ -107,7 +107,7 @@ var meetups = []*model.MeetUp{
 		UserId:      "2",
 	},
 }
-var users = []*model.User{
+var users = []*model2.User{
 	{
 		ID:        "1",
 		Email:     "john.doe@email.com",
@@ -124,6 +124,6 @@ var users = []*model.User{
 	},
 }
 
-func (r *userResolver) MeetUps(ctx context.Context, obj *model.User) (*model.MeetUp, error) {
+func (r *userResolver) MeetUps(ctx context.Context, obj *model2.User) (*model2.MeetUp, error) {
 	panic("implement me")
 }
