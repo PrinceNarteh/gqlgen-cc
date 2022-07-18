@@ -7,8 +7,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
-
 	"github.com/PrinceNarteh/gqlgen_cc/graph/generated"
 	"github.com/PrinceNarteh/gqlgen_cc/graph/model"
 )
@@ -46,7 +44,6 @@ func (r *queryResolver) User(ctx context.Context, id string) (*model.User, error
 	user := new(model.User)
 
 	for _, u := range users {
-		log.Println(id)
 		if u.ID == id {
 			user = u
 			break

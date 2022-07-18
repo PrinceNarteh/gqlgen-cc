@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/PrinceNarteh/gqlgen_cc/pkg/repository"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
@@ -14,6 +16,13 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("could not load .env file")
+	}
+
+	// Initializing database
+	repository.InitDAO()
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
